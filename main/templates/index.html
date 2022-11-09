@@ -2,16 +2,19 @@
 {% load static %}
 {% block content %}
     <body>
+    <button class="checkAllStatusesBtn">Check all</button>
     <table class="table_dark">
         <tr>
             <th>Link</th>
             <th>Status</th>
         </tr>
         {% for i in links %}
-            <tr data-testid="{{ i.link }}" data-interval="{{ i.refresh_interval }}" class="row">
-                <td>{{ i.link }} - Refresh interval: {{ i.refresh_interval }} secs</td>
+            <tr data-id="{{ i.id }}" class="row">
+                <td>{{ i.link }}</td>
                 <td class="status"></td>
-                <td class="comment hidden">Checking status...</td>
+                <td>
+                    <button class="checkStatusBtn" data-id="{{ i.id }}">Check status</button>
+                </td>
             </tr>
         {% endfor %}
     </table>

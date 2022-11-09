@@ -1,24 +1,30 @@
 $(document).ready(function () {
-    const apiPath = '/api/status'
+    $('.checkAllStatusesBtn').on('click', function () {
+        let row, rowStatus
 
-    $('tr.row').each(function () {
-        const row = this
-        const url = $(this).attr('data-testid')
-        const interval = parseInt($(this).attr('data-interval'))
+        $.get('/api/links').done(function (data) {
+            for (const item of data) {
+                const { id, status } = item
 
-        setInterval(() => {
-            $(row).attr('data-status', '')
-            $('.comment', row).removeClass('hidden')
-
-            $.post(apiPath, {url: url}).done(function (data) {
-                $('.comment', row).addClass('hidden')
-
-                const {status} = data
-                const rowStatus = status === 200 ? 'green' : 'red'
+                row = $(`tr[data-id="${id}"]`)
+                rowStatus = status === 200 ? 'green' : 'red'
 
                 $(row).attr('data-status', rowStatus)
                 $('.status', row).text(status)
-            })
-        }, interval * 1000)
+            }
+        })
+    })
+
+    $('.checkStatusBtn').on('click', function () {
+        const id = $(this).attr('data-id')
+        const row = $(`tr[data-id="${id}"]`)
+
+        $.get('/api/links/' + id).done(function (data) {
+            const {status} = data
+            const rowStatus = status === 200 ? 'green' : 'red'
+
+            $(row).attr('data-status', rowStatus)
+            $('.status', row).text(status)
+        })
     })
 })

@@ -40,10 +40,6 @@ tr[data-status="red"] {
   background-color: red;
 }
 
-.hidden {
-  display: none;
-}
-
 h1 {
   color: #EDB749;
   border-bottom: 1px solid #37B5A5;

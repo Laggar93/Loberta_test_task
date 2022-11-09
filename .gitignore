@@ -87,3 +87,4 @@ db.sqlite3
 .idea
 /venv/
 static
+celerybeat-schedule.db
